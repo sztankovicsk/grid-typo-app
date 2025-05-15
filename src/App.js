@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "./Grid";
 import AnimatedGrid from "./AnimatedGrid";
 
@@ -7,9 +7,8 @@ const AnimatedSquares = () => {
   const spacing = 20;
   const cols = Math.floor(window.innerWidth / (squareSize + spacing));
   const rows = Math.floor(window.innerHeight / (squareSize + spacing));
-  const [time, setTime] = React.useState(Date.now());
+  const [time, setTime] = useState(Date.now());
   const [mouse, setMouse] = React.useState({ x: 0, y: 0 });
-
 
   React.useEffect(() => {
     const handleMouseMove = (e) => {
@@ -76,25 +75,71 @@ const AnimatedSquares = () => {
 };
 
 const App = () => {
-    const [text, setText] = useState("");
-  
-    const handleKeyDown = (e) => {
-      if (e.key.length === 1) setText((prev) => prev + e.key);
-      else if (e.key === "Backspace") setText((prev) => prev.slice(0, -1));
+  const [text, setText] = useState("something that is difficult to talk about:");
+  const [submittedText, setSubmittedText] = useState("something that is difficult to talk about:");
+ // új állapot!
+  const [timeLevel, setTimeLevel] = useState(7);
+  const [outsideLevel, setOutsideLevel] = useState(1);
+  const [feelingLevel, setFeelingLevel] = useState(4);
+  const [insideLevel, setInsideLevel] = useState(2); // EZ HIÁNYZOTT
+  const [idle, setIdle] = useState(false);
+  const [lastInteraction, setLastInteraction] = useState(Date.now());
+  const idleTimeout = 5 * 60 * 1000; // 5 perc
+
+  useEffect(() => {
+    const updateInteraction = () => {
+      setLastInteraction(Date.now());
+      if (idle) setIdle(false);
     };
-    const [outsideLevel, setOutsideLevel] = useState(2);
-    return (
-      <div
-        style={{ backgroundColor: "black", color: "white", overflowY: "auto" }}
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-      >
-     
-        <section style={{ minHeight: "100%" }}>
-          <AnimatedGrid text={text} />
-        </section>
-      </div>
-    );
+  
+    window.addEventListener("mousemove", updateInteraction);
+    window.addEventListener("keydown", updateInteraction);
+  
+    return () => {
+      window.removeEventListener("mousemove", updateInteraction);
+      window.removeEventListener("keydown", updateInteraction);
+    };
+  }, [idle]);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Date.now() - lastInteraction > idleTimeout) {
+        setIdle(true);
+      }
+    }, 1000);
+  
+    return () => clearInterval(interval);
+  }, [lastInteraction]);
+  
+
+  const handleKeyDown = (e) => {
+    if (e.key.length === 1) setText((prev) => prev + e.key);
+    else if (e.key === "Backspace") setText((prev) => prev.slice(0, -1));
+    else if (e.key === "Enter") setSubmittedText(text); // csak itt megy át a text
   };
+
+  return (
+    <div
+      style={{ backgroundColor: "black", color: "white", overflow: "hidden" }}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+    >
+      
+
+      <section style={{ minHeight: "100vh", overflow: "hidden" }}>
+        <AnimatedGrid
+          text={submittedText}
+          idle={idle} 
+          timeLevel={timeLevel}
+          outsideLevel={outsideLevel}
+          feelingLevel={feelingLevel}
+          insideLevel={insideLevel}
+        />
+      </section>
+    </div>
+  );
+  
+};
+
   
 export default App;
