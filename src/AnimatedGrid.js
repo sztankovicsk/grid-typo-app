@@ -27,8 +27,9 @@ const AnimatedGrid = ({
   }
   const [distortedPatternMap, setDistortedPatternMap] = useState([]);
 
-  const cols = Math.floor(window.innerWidth / (squareSize + spacing));
-  const rows = Math.floor(window.innerHeight / (squareSize + spacing));
+  const isBrowser = typeof window !== "undefined";
+  const cols = isBrowser ? Math.floor(window.innerWidth / (squareSize + spacing)) : 60;
+  const rows = isBrowser ? Math.floor(window.innerHeight / (squareSize + spacing)) : 40;
 
   const [time, setTime] = useState(Date.now());
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
