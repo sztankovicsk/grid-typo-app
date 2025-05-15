@@ -1,156 +1,37 @@
-import React, { useState, useEffect, useRef } from "react";
-import Grid from "./Grid";
-import AnimatedGrid from "./AnimatedGrid";
-
-
-const AnimatedSquares = () => {
-  const squareSize = 50;
-  const spacing = 20;
-  const cols = Math.floor(window.innerWidth / (squareSize + spacing));
-  const rows = Math.floor(window.innerHeight / (squareSize + spacing));
-  const [time, setTime] = useState(Date.now());
-  const [mouse, setMouse] = React.useState({ x: 0, y: 0 });
-
-  React.useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMouse({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(Date.now());
-    }, 1000 / 60);
-    return () => clearInterval(interval);
-  }, []);
-
-  const renderSquares = () => {
-    const squares = [];
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const x = col * (squareSize + spacing);
-        const y = row * (squareSize + spacing);
-        const baseRotateX = Math.sin((row + time / 200) / 5) * 45;
-        const baseRotateY = Math.cos((col + time / 200) / 5) * 45;
-        const mouseAngle = Math.atan2(mouse.y - y, mouse.x - x);
-        const mouseSpeed = 100;
-        const rotateXWithMouse = baseRotateX + Math.sin(mouseAngle) * mouseSpeed;
-        const rotateYWithMouse = baseRotateY + Math.cos(mouseAngle) * mouseSpeed;
-
-        squares.push(
-          <div
-            key={`${row}-${col}`}
-            style={{
-              position: "absolute",
-              top: y,
-              left: x,
-              width: squareSize,
-              height: squareSize,
-              backgroundColor: "white",
-              transform: `rotateX(${rotateXWithMouse}deg) rotateY(${rotateYWithMouse}deg)`,
-              transition: "transform 0.05s ease-out",
-            }}
-          />
-        );
-      }
-    }
-    return squares;
-  };
-
-  return (
-    <div
-      style={{
-        backgroundColor: "black",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-        position: "relative",
-        cursor: "none",
-      }}
-    >
-      {renderSquares()}
-    </div>
-  );
-};
+import React, { useEffect, useRef, useState } from "react";
 
 const App = () => {
-  const [text, setText] = useState("something that is difficult to talk about:");
-  const [submittedText, setSubmittedText] = useState("something that is difficult to talk about:");
- // új állapot!
-  const [timeLevel, setTimeLevel] = useState(7);
-  const [outsideLevel, setOutsideLevel] = useState(1);
-  const [feelingLevel, setFeelingLevel] = useState(4);
-  const [insideLevel, setInsideLevel] = useState(2); // EZ HIÁNYZOTT
-  const [idle, setIdle] = useState(false);
-  const [lastInteraction, setLastInteraction] = useState(Date.now());
-  const idleTimeout = 5 * 60 * 1000; // 5 perc
-  const appRef = useRef(null); // ✅ ide jön a useRef
+  const appRef = useRef(null);
+  const [text, setText] = useState("");
 
   useEffect(() => {
     if (appRef.current) {
-      appRef.current.focus(); // automatikus fókusz a fő divre
+      appRef.current.focus();
     }
   }, []);
-
-  useEffect(() => {
-    const updateInteraction = () => {
-      setLastInteraction(Date.now());
-      if (idle) setIdle(false);
-    };
-  
-    window.addEventListener("mousemove", updateInteraction);
-    window.addEventListener("keydown", updateInteraction);
-  
-    return () => {
-      window.removeEventListener("mousemove", updateInteraction);
-      window.removeEventListener("keydown", updateInteraction);
-    };
-  }, [idle]);
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Date.now() - lastInteraction > idleTimeout) {
-        setIdle(true);
-      }
-    }, 1000);
-  
-    return () => clearInterval(interval);
-  }, [lastInteraction]);
-  
 
   const handleKeyDown = (e) => {
     if (e.key.length === 1) setText((prev) => prev + e.key);
     else if (e.key === "Backspace") setText((prev) => prev.slice(0, -1));
-    else if (e.key === "Enter") setSubmittedText(text); // csak itt megy át a text
   };
 
   return (
-   
     <div
-    ref={appRef}
-    tabIndex={0}
-    onKeyDown={handleKeyDown}
-    style={{ backgroundColor: "black", color: "white", overflow: "hidden" }}
-
+      ref={appRef}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      style={{
+        backgroundColor: "black",
+        color: "white",
+        minHeight: "100vh",
+        fontSize: "24px",
+        padding: "2rem",
+      }}
     >
-      
-
-      <section style={{ minHeight: "100vh", overflow: "hidden" }}>
-        <AnimatedGrid
-          text={submittedText}
-          idle={idle} 
-          timeLevel={timeLevel}
-          outsideLevel={outsideLevel}
-          feelingLevel={feelingLevel}
-          insideLevel={insideLevel}
-        />
-      </section>
+      <h1>Hello from Vercel!</h1>
+      <p>Start typing: {text}</p>
     </div>
   );
-  
 };
 
-  
 export default App;
