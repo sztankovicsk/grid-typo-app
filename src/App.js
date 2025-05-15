@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Grid from "./Grid";
 import AnimatedGrid from "./AnimatedGrid";
+
 
 const AnimatedSquares = () => {
   const squareSize = 50;
@@ -85,6 +86,13 @@ const App = () => {
   const [idle, setIdle] = useState(false);
   const [lastInteraction, setLastInteraction] = useState(Date.now());
   const idleTimeout = 5 * 60 * 1000; // 5 perc
+  const appRef = useRef(null); // ✅ ide jön a useRef
+
+  useEffect(() => {
+    if (appRef.current) {
+      appRef.current.focus(); // automatikus fókusz a fő divre
+    }
+  }, []);
 
   useEffect(() => {
     const updateInteraction = () => {
@@ -119,10 +127,13 @@ const App = () => {
   };
 
   return (
+   
     <div
-      style={{ backgroundColor: "black", color: "white", overflow: "hidden" }}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
+    ref={appRef}
+    tabIndex={0}
+    onKeyDown={handleKeyDown}
+    style={{ backgroundColor: "black", color: "white", overflow: "hidden" }}
+
     >
       
 
