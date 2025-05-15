@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/grid-typo-app/static/css/main.46b88b1f.css",
-    "main.js": "/grid-typo-app/static/js/main.7091c77b.js",
+    "main.js": "/grid-typo-app/static/js/main.42b75db8.js",
     "static/js/453.ddd2a56d.chunk.js": "/grid-typo-app/static/js/453.ddd2a56d.chunk.js",
     "index.html": "/grid-typo-app/index.html",
     "main.46b88b1f.css.map": "/grid-typo-app/static/css/main.46b88b1f.css.map",
-    "main.7091c77b.js.map": "/grid-typo-app/static/js/main.7091c77b.js.map",
+    "main.42b75db8.js.map": "/grid-typo-app/static/js/main.42b75db8.js.map",
     "453.ddd2a56d.chunk.js.map": "/grid-typo-app/static/js/453.ddd2a56d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.46b88b1f.css",
-    "static/js/main.7091c77b.js"
+    "static/js/main.42b75db8.js"
   ]
 }
