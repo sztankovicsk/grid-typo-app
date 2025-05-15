@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/interference/static/css/main.abd6c7b0.css",
+    "main.js": "/interference/static/js/main.22569d22.js",
+    "static/js/453.ddd2a56d.chunk.js": "/interference/static/js/453.ddd2a56d.chunk.js",
+    "index.html": "/interference/index.html",
+    "main.abd6c7b0.css.map": "/interference/static/css/main.abd6c7b0.css.map",
+    "main.22569d22.js.map": "/interference/static/js/main.22569d22.js.map",
+    "453.ddd2a56d.chunk.js.map": "/interference/static/js/453.ddd2a56d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.abd6c7b0.css",
+    "static/js/main.22569d22.js"
+  ]
+}
