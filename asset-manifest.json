@@ -1,16 +1,15 @@
 {
   "files": {
     "main.css": "/grid-typo-app/static/css/main.46b88b1f.css",
-    "main.js": "/grid-typo-app/static/js/main.2b043ab6.js",
+    "main.js": "/grid-typo-app/static/js/main.4f10f5da.js",
     "static/js/453.ddd2a56d.chunk.js": "/grid-typo-app/static/js/453.ddd2a56d.chunk.js",
-    "static/media/UnifiedGrid": "/grid-typo-app/static/media/UnifiedGrid.e86003531e3cbad73203",
     "index.html": "/grid-typo-app/index.html",
     "main.46b88b1f.css.map": "/grid-typo-app/static/css/main.46b88b1f.css.map",
-    "main.2b043ab6.js.map": "/grid-typo-app/static/js/main.2b043ab6.js.map",
+    "main.4f10f5da.js.map": "/grid-typo-app/static/js/main.4f10f5da.js.map",
     "453.ddd2a56d.chunk.js.map": "/grid-typo-app/static/js/453.ddd2a56d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.46b88b1f.css",
-    "static/js/main.2b043ab6.js"
+    "static/js/main.4f10f5da.js"
   ]
 }
